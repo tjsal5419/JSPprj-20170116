@@ -1,0 +1,162 @@
+@CHARSET "UTF-8";
+
+.hr-menu{
+	display: inline-block; /* 인라인은 너비 여백 없앰. 블럭단위로 인라인을 줌. 원래는 한 줄을 다 차지 */
+	overflow : auto ; /* 높이를 컨텐트 크기에 맞춰줌 */
+}
+
+.hr-menu ul{
+	overflow : auto;
+}
+
+.hr-menu li{
+	float : left;
+}
+
+
+.hr-menu li:first-child{
+	background: none !important;
+	padding-left: 0px !important;
+}
+
+.hr-menu li a{
+	text-decoration: none;
+	color : #979797;
+}
+
+.hr-menu li a:hover{
+	text-decoration: underline;
+}
+
+/* -------------------------Header Style---------------------------------- */
+#logo{
+	position: absolute;
+	top : 23px;
+}
+
+
+#main-menu{
+	position: absolute;
+	top : 27px;
+	left : 200px;
+}
+
+
+#main-menu > ul > li > a{
+		font-family: 맑은 고딕, 고딕, sans-serif;
+		font-size: 15px;
+		font-weight: bold;
+		color : #000000;
+}
+
+#main-menu a{
+	color : #000000;
+}
+
+#main-menu li{
+	padding-left: 24px;
+	background: url("../images/bg-main-menu-vsp.png") no-repeat 13px center;
+}
+
+#main-menu li:nth-child(3) a{
+	color : orange;
+}
+
+
+
+#lecture-menu{
+}
+
+
+
+#lecture-search-form{
+	width : 288px;
+	height : 25px;
+	border : 5px solid #83BA34;
+	position : absolute;
+	left : 468px;
+	top : 21px;
+}
+
+#lecture-search-form fieldset label{
+	font-size:11px;
+	background : red;
+	display : block;
+	width : 55px;	
+	height : 25px;
+	line-height: 25px;
+	float : left;
+	text-indent: 5px;
+	font-weight: bold;
+}
+
+#lecture-search-form fieldset input[type=text]{
+	background : green;
+	width : calc(100% - 55px - 31px);
+	height : 25px;
+    line-height:25px;
+	float : left;
+	display : block;
+	border: 0px;
+	
+}
+
+#lecture-search-form fieldset input[type=submit]{
+   width:31px;
+   height:25px;
+   line-height:25px;
+   float: left;
+   display: block;
+   border-left: 1px solid #83BA34;
+	background : url("../images/btn-zoom.png") no-repeat center;
+	border : none;
+	cursor : pointer;
+	text-indent : -999px; /* value="검색 지워버리기"  꼼수 */
+}
+
+
+#account-menu{
+	position : absolute;
+	right:0px;
+	top : 20px;
+}
+
+#account-menu li{
+	padding-left: 24px;
+	background: url("../images/bg-member-menu-sp.png") no-repeat 13px center;	
+	font-size: 70%;
+}
+
+
+#member-menu {
+	top : 40px;
+	position : absolute;
+	right : 0px;
+}
+
+#member-menu li:first-child input{
+	background: url("../images/menuMyPage.png") no-repeat center center;	
+	float : right;
+	display : block;
+	text-indent : -999px;
+	width : 75px;
+	height : 20px;
+	border : none;
+	cursor : pointer;
+
+}
+
+#member-menu li:nth-child(2) input{
+	background: url("../images/menuCustomer.png") no-repeat center center;	
+	float : right;
+	display : block;
+	text-indent : -999px;
+	border : none;
+	cursor : pointer;
+	height : 20px;
+	width : 75px;
+}
+.clearfix {  /* float를 초기화해주는 clearfix이다. 마지막 컨테이너에 넣어줌. */
+  overflow: auto;
+  zoom: 1;
+}

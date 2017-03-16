@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+		window.addEventListener("load", function(e) {
+		var ifChange = document.getElementById("if-change");
+		ifChange.onclick = function(){
+			 parent.document.body.innerText = "aaa";
+/* 			frames[0].document.body.innerText="aaa"; */
+		};
+		
+	});
+</script>
+</head>
+<body>
+	안녕하세요
+	<input id="if-change" type="button" value="변경">
+</body>
+</html>

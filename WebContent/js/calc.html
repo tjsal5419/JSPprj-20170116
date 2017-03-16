@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	window.addEventListener("load" , function(){
+		
+		var btnSum = document.getElementById("btn-sum");
+		var txtX = document.getElementById("txt-x");
+		var txtY = document.getElementById("txt-y");
+		var txtSum = document.getElementById("txt-sum");
+		btnSum.onclick = function(){
+			txtSum.value = parseInt(txtX.value) + parseInt(txtY.value);
+		};
+	});
+
+	window.addEventListener("load", function() {
+		var btnCountDown = document.getElementById("btn-countdown");
+		var lblCount = document.getElementById("lbl-count");
+		// 상태변수
+		var timer;
+
+		btnCountDown.onclick = function() {
+			if (timer == undefined) {
+
+				timer = setInterval(function() {
+					var count = parseInt(lblCount.innerText);
+
+					if (count == 0){
+						clearInterval(timer);
+						timer = undefined;
+						lblCount.innerText = 60;
+					}
+					else
+						lblCount.innerText = count - 1;
+				}, 1);
+			};
+		};
+	});
+	
+	window.addEventListener("load", function(e) {
+		var openButton = document.getElementById("open-button");
+		var win = null;
+		var closeButton = document.getElementById("close-button");
+		openButton.onclick = function(){
+			if(win==null)
+				win = open("http://www.daum.net","_blank", "width = 700px, height = 500px");
+		};
+		
+		closeButton.onclick = function(){
+			if(win!=null)
+				win.close();
+		}
+	});
+	
+	window.addEventListener("load", function(e) {
+		var ifChange = document.getElementById("if-change");
+		var win = document.getElementById("fid").contentWindow;
+		
+		ifChange.onclick = function(){
+			win.document.body.innerText = " ㅎ호ㅗㅗ하";
+/* 			frames[0].document.body.innerText="aaa"; */
+		};
+		
+	});
+	
+	window.addEventListener("load", function(e) {
+		var win = document.getElementById("fid").contentWindow;
+		var urlText = document.getElementById("url-text");
+		var f5Button = document.getElementById("f5-button");
+		var gogoButton = document.getElementById("gogo-button");
+		var backButton = document.getElementById("back-button");
+		var forwardButton = document.getElementById("forward-button");	
+
+		f5Button.onclick = function(){
+				win.location.reload();
+		};
+		
+		gogoButton.onclick = function(){
+				win.location.href="http://"+urlText.value;
+		};
+		
+		backButton.onclick = function(){
+				history.back();
+	    };
+
+	    forwardButton.onclick = function(){
+			history.forward();
+		};
+	
+		
+		
+	});
+	
+	
+	
+</script>
+</head>
+<!--  ---------------------------------------------------------------------------------------- -->
+<body>
+	<hr/>
+		http://<input id="url-text" type="text" value="www.daum.net">
+		<input id="gogo-button" type="button" value="이동">
+		<input id="f5-button" type="button" value="새로고침">
+		<input id="back-button" type="button" value="back">
+		<input id="forward-button" type="button" value="forward">
+		
+	<hr/>
+	<div>
+		<iframe id="fid" src="article.html" style="width:500px; height :300px; border=0px;"></iframe>
+		<input id="if-change" type="button" value="변경">
+	</div>
+	<hr/>
+	
+	<div>
+		<input id="open-button" type="button" value="새창띄우기">
+		<input id="close-button" type="button" value="띄운창닫기">
+	</div>
+	<hr/>
+	
+	 <p>
+       남은시간 <span id="lbl-count">60</span>초
+       <input id="btn-countdown" type="button" value="카운트 시작" />
+   </p>
+
+	<hr />
+	<p>
+		<label>x:</label><input id="txt-x" /> <label>y:</label><input
+			id="txt-y" />
+	</p>
+	<p>
+		sum = <input id="txt-sum" />
+	</p>
+	<p>
+		<input id="btn-sum" type="button" value="Sum" />
+	</p>
+
+</body>
+</html>

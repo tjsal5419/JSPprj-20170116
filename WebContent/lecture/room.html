@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="../css/customor/style.css" type="text/css" rel="stylesheet"/>
+
+<!-- <style>
+
+#main-menu>ul>li>ul{ 
+	color: black;
+}
+#main-menu>ul>li:NTH-CHILD(3){ 
+	color: orange;
+}
+#advertise {
+	font-style: italic;
+	color: gray;
+	font: bold;
+}
+
+book-img {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+h3.h2 {
+	color: red;
+	font-size: 35px;
+}
+
+nav>.h2{
+	color : orange;
+}
+
+.h2{
+	color : green;
+}
+
+input[value~="ko"]{
+	border: 3px solid green;
+}
+
+input[type="text"]{
+	border: 4px solid blue;
+}
+
+.test2>ul>li:NTH-CHILD(2)>ul>li:NTH-CHILD(2){
+	color : purple;
+}
+
+
+
+
+</style> -->
+
+</head>
+<body>
+
+	<header>
+		<h1>
+			<img src="../images/logo.png" alt="뉴렉처 온라인" />
+		</h1>
+
+		<h2>헤더</h2>
+
+		<div id=main-menu>
+			<h3>메뉴 리스트</h3>
+			<div>test</div>
+			<ul>
+				<li>학습가이드
+					<ul>
+						<li>첫번째 학습 가이드</li>
+						<li>두번째 학습 가이드</li>
+					</ul>
+				</li>
+				<li>뉴렉과정</li>
+				<li>강좌선택</li>
+			</ul>
+			<ul>
+				<li>수강신청
+				<li>수강신청취소
+			</ul>
+		</div>
+
+		<div>
+			<h3 class="h2">과정 검색 폼</h3>
+			<form>
+				과정검색 <input type="text" /> <input type="button" value="ko eng math" />
+			</form>
+
+		</div>
+
+		<div class="test2">
+			<h3>로그인관리</h3>
+			<ul>
+				<li class="first"><a href="../index.html">HOME</a></li>
+				<li>로그인
+					<ul>
+						<li>안녕</li>
+						<li>안녕2</li>
+					</ul>
+				</li>
+				<li>회원가입</li>
+			</ul>
+		</div>
+
+
+	<div>
+		<h3>고객 관리</h3>
+		<ul>
+			<li class="first">마이페이지</li>
+			<li>고객센터</li>
+		</ul>
+	</div>
+   </header>
+	 	
+	<h2>CLASS ROOM</h2>
+
+	<div>
+		<h3>강의 상태 정보</h3>
+		<form>이 과정에 대한 수강정보가 없음</form>
+	</div>
+	
+	<h3>동일한 플랫폼의 다른 과정</h3>
+	<table>
+		<tr>
+			<td><book-img>도서</book-img></td>
+			<td>
+				<div>jQuery 프로그래밍</div>
+				<div>최종업데이트 : 2013-06-09</div>
+			</td>
+		</tr>
+
+		<tr>
+
+			<td><book-img>도서</book-img></td>
+			<td>
+				<div>JAVASCRIPT-DOM 프로그래밍</div>
+				<div>최종업데이트 : 2015-05-18</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td><book-img>도서</book-img></td>
+			<td>
+				<div>JAVASCRIPT-이벤트 심화과정</div>
+				<div>최종업데이트 :2015-05-16</div>
+			</td>
+		</tr>
+	</table>
+
+	<h3>추천사이트</h3>
+	<ul>
+		<li>answeris</li>
+	</ul>
+
+	<h3 id=advertise>구글 광고</h3>
+
+
+  <main>
+	<h2>강의장</h2>
+
+	<h3>강의장 목록</h3>
+	<ol>
+		<li class="first">Home</li>
+		<li>강의장</li>
+	</ol>
+
+	<h3>강의용 책 기본 소개</h3>
+	<form>
+		<table>
+			<tr>
+				<td>
+					<ul>
+						<li>HTML5 웹 표준 가이드 [기본과정]</li>
+						<li>55000원</li>
+						<li>최종업데이트: 2013-02-04</li>
+					</ul>
+				</td>
+
+				<td>
+					<ul>
+						<li>대상 :웹개발,기획,디자이너,퍼블리셔 등</li>
+						<li>이벤트 :없음</li>
+						<li>강의 선생님 :newlec</li>
+						<li>선생님 추천도서 :HTML and CSS Web Standards Solutions</li>
+						<li>[※ 추천도서는 단순히 강의 선생님이 추천한 의미만 있을뿐 뉴렉처에서는 이 책을 판매하거나 제공하지
+							않습니다.]</li>
+					</ul>
+				</td>
+
+				<td>
+					<ul>
+						<book-img>추천도서 [추천도서]</book-img>
+					</ul>
+				</td>
+			</tr>
+		</table>
+
+		<h3>강의소개</h3>
+		<div>이 강좌는 웹과 관련된 모든 사람들을 위해 마련된 강좌입니다. 이 강과는 단순히 HTML이나 CSS를
+			설명하는 강좌는 아닙니다. HTML과 CSS를 올바로 사용하는 방법을 알려주는 강좌입니다. 단순히 HTML로만 만들던 웹
+			문서를 CSS를 이용할 수 있도록 설명하는 강좌가 아니며 웹의 변화와 올바른 퍼블리싱이 왜 필요한지를 알려주며 그것을
+			만조하는 문서를 어떻게 만들어져야 하는지를 실무적으로 짚어서 설명해주는 강좌입니다. 따라서 이 강좌는 많은 노하우가 없이는
+			설명할 수 없는 부분들을 설명해주는 강좌입니다. 이 강좌는 HTML이나 CSS를 모르는 모든 입문자를 비롯해서 단순히
+			HTML이나 CSS를 알고 있지만 올바로 사용하는 방법을 모르거나 막연하게만 알고 있는 경우에도 이 강좌는 반드시 필요한
+			강좌라고 할 수 있습니다. 모바일에 특화된 퍼블리싱을 학습하시거나 모바일 웹이나 자바 스크립트를 학습하시려는 분들은 반드시
+			이 강좌를 통해서 올바른 웹 문서를 만드는 방법을 학습하시기 바랍니다.</div>
+
+		<h3>과정 신청</h3>
+		<table>
+
+			<tr>
+				<td>학습기간</td>
+				<td>이벤트</td>
+				<td>수강료</td>
+				<td>이벤트할인금액</td>
+				<td>결제금액</td>
+				<td>신청</td>
+			</tr>
+			<tr>
+				<td>2 개월</td>
+				<td>없음</td>
+				<td>55000 원</td>
+				<td>0 원</td>
+				<td>55000 원</td>
+				<td>신청하기</td>
+			</tr>
+		</table>
+
+		<h3>학습대상</h3>
+		<ul>
+			<li>-웹 전문가를 꿈꾸는 사람</li>
+			<li>-웸 문서를 올바로 만드는 방법을 알고 싶은 사람</li>
+			<li>-HTML5를 공부하려는 사람</li>
+			<li>-웹 기획이나 웹 개발을 하려는 사람</li>
+			<li>-클라우드 응용프로그램 개발자</li>
+		</ul>
+		<h3>선수지식</h3>
+		<ul>
+			<li>-인터넷 사용 경험</li>
+			<li>-아래한글이나 워드 작성 경험</li>
+		</ul>
+
+		<h3>학습도구</h3>
+
+		<h3>강의 신청과 안내</h3>
+		<ul>
+			<li>강의신청과 강의에대한 내용을 감추려면 오른쪽의 닫기 버튼을 클릭하세요.</li>
+			<li>과정 신청 및 안내 닫기</li>
+		</ul>
+	</form>
+
+	<h3>강의 영상용 도구</h3>
+	<ol>
+		<li>강의내용</li>
+		<li>미리보기</li>
+		<li>학습도구</li>
+	</ol>
+
+	<h3>과정 커리큘럼</h3>
+	<div>[강좌에서 TV 아이콘을 클릭하면 동영상 파일을 다운로드 할 수 있습니다.]</div>
+
+	<table>
+		<tr>
+			<td>강의제목</td>
+			<td>강의시간</td>
+		</tr>
+		<tr>
+			<td>1장. 웹과 HTML5 퍼블리싱을 위한 기본 지식</td>
+		</tr>
+		<tr>
+			<td>1.1 웹 퍼블리싱이란~</td>
+			<td>08:00</td>
+		</tr>
+		<tr>
+			<td>1.2 World Wide Web의 역사</td>
+			<td>10:37</td>
+		</tr>
+		<tr>
+			<td>1.3 HTML에서 HTM(HyperText Markup)의 의미 알아보기</td>
+			<td>07:14</td>
+		</tr>
+		<tr>
+			<td>1.4 언어로써의 HTML의 의미 알아보기</td>
+			<td>08:05</td>
+		</tr>
+		<tr>
+			<td>2장. 실습환경 구축하기</td>
+		</tr>
+		<tr>
+			<td>2.1 실습 환경 준비</td>
+			<td>18:54</td>
+	</table>
+  </main>
+
+	<h2>회사정보</h2>
+	<div>주소서울특별시 마포구 토정로35길 11, 인우빌딩 5층
+		266호관리자메일admin@newlecture.com사업자 등록번호132-18-46763 통신 판매업 신고제
+		2013-서울강동-0969 호 상호뉴렉처대표박용우전화번호070-4206-4084 [죄송합니다. 당분간 문의내용은 고개센터
+		메뉴에서 1:1 문의를 이용해주시기 바랍니다] Copyright ⓒ newlecture.com 2012-2014 All
+		Right Reserved. Contact admin@newlecture.com for more information</div>
+</body>
+</html>
