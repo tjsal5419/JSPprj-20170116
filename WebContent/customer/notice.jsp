@@ -1,4 +1,5 @@
 
+<%@page import="java.util.ListIterator"%>
 <%@page import="com.newlecture.web.data.view.NoticeView"%>
 <%@page import="java.util.List"%>
 <%@page import="com.newlecture.web.data.dao.NoticeDao"%>
@@ -323,10 +324,12 @@
 							</tr>
 						</template>
 					
-						<%for(NoticeView v : list){ %>
+						<%
+							for(NoticeView v : list){								
+						%>
 						<tr>
 							<td><%= v.getCode() %></td>
-							<td><%= v.getTitle() %></td>
+							<td><a href="notice-detail.jsp?c=<%=v.getCode() %>"><%=v.getTitle() %></a></td>
 							<td><%= v.getWriter() %></td>
 							<td><%= v.getRegdate() %></td>
 							<td><%= v.getHit() %></td>

@@ -7,6 +7,11 @@
 <%
    String title = request.getParameter("title");
    String content = request.getParameter("content");
-	
-   System.out.print(title);
+   NoticeDao noticeDao = new MySQLNoticeDao();
+   int result = noticeDao.add(title, content, "TJSAL");
+   
+   if(result > 0)
+		response.sendRedirect("notice.jsp");   
+   
+   
 %>

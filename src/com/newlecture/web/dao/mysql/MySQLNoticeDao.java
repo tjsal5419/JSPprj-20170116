@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.newlecture.web.data.dao.NoticeDao;
@@ -26,7 +28,7 @@ public class MySQLNoticeDao implements NoticeDao{
 
 	@Override
 	public List<NoticeView> getList(int page, String field, String query) {
-
+		
 		List<NoticeView> list = new ArrayList();
 		try {
 			String sql = "SELECT * FROM NOTICE_VIEW WHERE BINARY "+field+" LIKE ? LIMIT ?,10";
@@ -125,10 +127,250 @@ public class MySQLNoticeDao implements NoticeDao{
 	}
 	@Override
 	public int add(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		
+		try {
+			
+			String codeSql = "SELECT MAX(CAST(CODE AS UNSIGNED))+1 CODE FROM NOTICE";
+			
+			String sql = "INSERT INTO `newlecture`.`NOTICE`(CODE, TITLE, WRITER, CONTENT) VALUES (?,?,?,?)";
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass");
+			PreparedStatement st = con.prepareStatement(sql);
+			Statement codeSt = con.createStatement();
+			ResultSet rs = codeSt.executeQuery(codeSql);
+			rs.next();
+			String code = rs.getString("CODE");
+			codeSt.close();
+			
+			
+			st.setString(1,code);
+			st.setString(2, notice.getTitle());
+			st.setString(3,notice.getWriter());
+			st.setString(4,notice.getContent());
+
+			result = st.executeUpdate();
+			
+			st.close();
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	
+	}
+	@Override
+	public NoticeView get(String code) {
+	
+		NoticeView noticeView = null;
+		try {
+			String sql = "SELECT * FROM NOTICE_VIEW WHERE CODE=?";
+
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass");
+			PreparedStatement st = con.prepareStatement(sql);
+			
+			st.setString(1,code);
+
+			ResultSet rs = st.executeQuery();
+			
+			if(rs.next()){
+				noticeView = new NoticeView();
+				noticeView.setHit(rs.getInt("HIT"));
+				noticeView.setCode(rs.getString("CODE"));
+				noticeView.setTitle(rs.getString("TITLE"));
+				//noticeView.setWriterName(rs.getString("NAME"));
+				//noticeView.setCommentCount(rs.getInt("COMMENT_COUNT"));
+				noticeView.setWriter(rs.getString("WRITER"));
+				noticeView.setContent(rs.getString("CONTENT"));
+				noticeView.setRegdate(rs.getDate("REGDATE"));
+				
+				// NoticeView Column
+				noticeView.setCommentCount(rs.getInt("COMMENT_COUNT"));
+				noticeView.setWriterName(rs.getString("WRITER_NAME"));
+			}
+			
+			st.close();
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	return noticeView;
+	
+	}
+	@Override
+	public int delete(String code) {
+		int result = 0;
+		try {
+			String sql = "DELETE FROM NOTICE WHERE CODE=?";
+
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass");
+			PreparedStatement st = con.prepareStatement(sql);
+			
+			st.setString(1,code);
+			
+			result = st.executeUpdate();
+			
+			st.close();
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	return result;
+}
+	
+
+	@Override
+	public int update(Notice notice) {
+		int result = 0;
+		try {
+			String sql = "UPDATE NOTICE SET TITLE=?, CONTENT=? WHERE CODE=?";
+
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass");
+			PreparedStatement st = con.prepareStatement(sql);
+			
+			st.setString(1, notice.getTitle());
+			st.setString(2,notice.getContent());
+			st.setString(3,notice.getCode());
+			
+			System.out.print(notice.getCode());
+			result = st.executeUpdate();
+			
+			st.close();
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	return result;
+	}
+	@Override
+	public int update(String title, String content, String code) {
+		
+		Notice notice = new Notice();
+		notice.setCode(code);
+		notice.setTitle(title);
+		notice.setContent(content);
+		
+		return update(notice);
+	}
+	@Override
+	public NoticeView getPrev(String code) {
+		NoticeView noticeView = null;
+		try {
+			String sql = "SELECT * FROM NOTICE WHERE CAST(CODE AS unsigned) > CAST(? AS unsigned) ORDER BY REGDATE asc LIMIT 0,1";
+
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass");
+			PreparedStatement st = con.prepareStatement(sql);
+			
+			st.setString(1,code);
+
+			ResultSet rs = st.executeQuery();
+			
+			if(rs.next()){
+				noticeView = new NoticeView();
+				noticeView.setHit(rs.getInt("HIT"));
+				noticeView.setCode(rs.getString("CODE"));
+				noticeView.setTitle(rs.getString("TITLE"));
+				//noticeView.setWriterName(rs.getString("NAME"));
+				//noticeView.setCommentCount(rs.getInt("COMMENT_COUNT"));
+				noticeView.setWriter(rs.getString("WRITER"));
+				noticeView.setContent(rs.getString("CONTENT"));
+				noticeView.setRegdate(rs.getDate("REGDATE"));
+				
+				// NoticeView Column
+				noticeView.setCommentCount(rs.getInt("COMMENT_COUNT"));
+				noticeView.setWriterName(rs.getString("WRITER_NAME"));
+			}
+			
+			st.close();
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return noticeView;
+	}
+	@Override
+	public NoticeView getNext(String code) {
+		NoticeView  noticeView = null;
+		try {
+			String sql = "SELECT * FROM NOTICE WHERE CAST(CODE AS unsigned) < CAST(? AS unsigned) ORDER BY REGDATE DESC LIMIT 0,1";
+
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass");
+			PreparedStatement st = con.prepareStatement(sql);
+			
+			st.setString(1,code);
+
+			ResultSet rs = st.executeQuery();
+			
+			if(rs.next()){
+				noticeView = new NoticeView();
+				noticeView.setHit(rs.getInt("HIT"));
+				noticeView.setCode(rs.getString("CODE"));
+				noticeView.setTitle(rs.getString("TITLE"));
+				//noticeView.setWriterName(rs.getString("NAME"));
+				//noticeView.setCommentCount(rs.getInt("COMMENT_COUNT"));
+				noticeView.setWriter(rs.getString("WRITER"));
+				noticeView.setContent(rs.getString("CONTENT"));
+				noticeView.setRegdate(rs.getDate("REGDATE"));
+				
+				// NoticeView Column
+				noticeView.setCommentCount(rs.getInt("COMMENT_COUNT"));
+				noticeView.setWriterName(rs.getString("WRITER_NAME"));
+			}
+			
+			st.close();
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return noticeView;
 	}
 
-	
 	
 }
