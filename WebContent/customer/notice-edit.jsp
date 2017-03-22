@@ -5,8 +5,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-   
+/*    	String writer  = request.getParameter("w");
+	String content = request.getParameter("c");
+	String title = request.getParameter("t");
+	String regDate = request.getParameter("d");
+	String hit = request.getParameter("h"); */
+	
+	String code = request.getParameter("c");
 
+	NoticeDao noticeDao = new MySQLNoticeDao();
+	NoticeView n = noticeDao.get(code);
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -105,7 +114,7 @@
       
          <main id="main">
       
-            <h2 class="main-title">공지사항 등록</h2>
+            <h2 class="main-title">공지사항 내용</h2>
             
             <div class="breadcrumb">
                <h3 class="hidden">현재경로</h3>
@@ -116,33 +125,54 @@
                </ul>
             </div>
                
-            <form action="notice-reg-proc" method="post" enctype="multipart/form-data"> <!-- 멀티파트 폼 데이타 -->
-            <table border="1">
-               <tbody>
-                  <tr>
-                     <th>제목</th>
-                     <td><input type="text"  name="title"/></td>
-                  </tr>
-                  
-                  <tr>
-                  	<th>파일 선택</th>
-                  	<td> <input type="file" name="files"/></td>
-                  </tr>
+               <form action="notice-edit-proc.jsp" method="post">
+	            <table border="1">
+	               <tbody>
+	                  <tr>
+	                     <th>제목</th>
+	                     <td colspan="4">
+	                     		<input name="title" type="text" value="<%=n.getTitle() %>"/>	
+	                     </td>
+	                  </tr>
+	                  
+	                  <tr>
+	                     <th>작성자</th>
+	                     <td colspan="4">
+	                     		<%= n.getWriter() %>	
+	                     </td>
+	                  </tr>
+	                  
+	                  <tr>
+	                     <th>작성일</th>
+	                     <td colspan="4">
+	                     		<%= n.getRegdate() %>
+	                     </td>
+	                  </tr>
+	                  
+	                  <tr>
+	                     <th>조회수</th>
+	                     <td colspan="4">
+	                     		<%= n.getHit() %>
+	                     </td>
+	                  </tr>
+	                  
+	                  <tr>
+	                     <th>내용</th>
+	                     <td colspan="4">
+	                     		<textarea name="content" rows="20" cols="80"><%= n.getContent() %></textarea>
+	                     </td>
+	                  </tr>	                  
+	                  
+	               </tbody>
+	            </table>
+	           
+            <div>
+            	<input type="hidden" name="code" value=<%=n.getCode() %>>
+               	<input type="submit" value="저장" />
+                <a href="notice-detail.jsp?c=<%=n.getCode()%>">취소</a>               
+            </div>            
+           </form>
 
-                  
-                                    
-                  <tr>                  
-                     <td colspan="2">
-                        <textarea rows="20" cols="80" name="content"></textarea>
-                     </td>
-                  </tr>   
-               </tbody>
-            </table>
-            <div>      
-               <input type="submit" value="등록" />         
-               <a href="notice.jsp">취소</a>
-            </div>
-            </form>            
          </main>
          
       </div>

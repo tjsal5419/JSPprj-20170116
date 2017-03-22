@@ -288,7 +288,7 @@ public class MySQLNoticeDao implements NoticeDao{
 	public NoticeView getPrev(String code) {
 		NoticeView noticeView = null;
 		try {
-			String sql = "SELECT * FROM NOTICE WHERE CAST(CODE AS unsigned) > CAST(? AS unsigned) ORDER BY REGDATE asc LIMIT 0,1";
+			String sql = "SELECT * FROM NOTICE_VIEW WHERE CAST(CODE AS unsigned) > CAST(? AS unsigned) ORDER BY REGDATE asc LIMIT 0,1";
 
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
@@ -331,7 +331,7 @@ public class MySQLNoticeDao implements NoticeDao{
 	public NoticeView getNext(String code) {
 		NoticeView  noticeView = null;
 		try {
-			String sql = "SELECT * FROM NOTICE WHERE CAST(CODE AS unsigned) < CAST(? AS unsigned) ORDER BY REGDATE DESC LIMIT 0,1";
+			String sql = "SELECT * FROM NOTICE_VIEW WHERE CAST(CODE AS unsigned) < CAST(? AS unsigned) ORDER BY REGDATE DESC LIMIT 0,1";
 
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
@@ -372,5 +372,36 @@ public class MySQLNoticeDao implements NoticeDao{
 		return noticeView;
 	}
 
-	
+
+	@Override
+	public String lastCode() {
+	String code = null; 		
+		try {
+			
+			String sql = "SELECT MAX(CAST(CODE AS UNSIGNED)) CODE FROM NOTICE";
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			if(rs.next())
+				code = rs.getString("CODE");
+
+			st.close();
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return code;
+	}
+
+
 }

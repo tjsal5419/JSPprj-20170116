@@ -18,7 +18,7 @@ public class MySQLMemberDao implements MemberDao {
 	public List<Member> getList(String query){
 
 		  String sql = "SELECT  *  From MEMBER WHERE ID LIKE'%"+query+"%' ORDER BY ID DESC";
-		  
+
 		  List<Member> list = new ArrayList<>();
 		  
 		try {

@@ -23,6 +23,7 @@ public interface NoticeDao {
 	int delete(String code);
 	int update(Notice notice);
 	int update(String title, String content, String code);
-
+	
+	String lastCode();
 
 }

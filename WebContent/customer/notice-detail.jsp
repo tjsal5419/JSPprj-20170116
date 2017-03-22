@@ -1,3 +1,8 @@
+
+<%@page import="com.newlecture.web.data.entity.NoticeFile"%>
+<%@page import="com.newlecture.web.dao.mysql.MySQLNoticeFileDao"%>
+<%@page import="com.newlecture.web.data.dao.NoticeFileDao"%>
+<%@page import="java.util.Date"%>
 <%@page import="com.newlecture.web.data.view.NoticeView"%>
 <%@page import="java.util.List"%>
 <%@page import="com.newlecture.web.data.dao.NoticeDao"%>
@@ -5,7 +10,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-   
+	
 
 %>
 <!DOCTYPE html>
@@ -105,7 +110,7 @@
       
          <main id="main">
       
-            <h2 class="main-title">공지사항 등록</h2>
+            <h2 class="main-title">공지사항 내용</h2>
             
             <div class="breadcrumb">
                <h3 class="hidden">현재경로</h3>
@@ -116,33 +121,94 @@
                </ul>
             </div>
                
-            <form action="notice-reg-proc" method="post" enctype="multipart/form-data"> <!-- 멀티파트 폼 데이타 -->
-            <table border="1">
-               <tbody>
-                  <tr>
-                     <th>제목</th>
-                     <td><input type="text"  name="title"/></td>
-                  </tr>
-                  
-                  <tr>
-                  	<th>파일 선택</th>
-                  	<td> <input type="file" name="files"/></td>
-                  </tr>
-
-                  
-                                    
-                  <tr>                  
-                     <td colspan="2">
-                        <textarea rows="20" cols="80" name="content"></textarea>
-                     </td>
-                  </tr>   
-               </tbody>
-            </table>
-            <div>      
-               <input type="submit" value="등록" />         
-               <a href="notice.jsp">취소</a>
-            </div>
-            </form>            
+	            <table border="1">
+	               <tbody>
+	                  <tr>
+	                     <th>제목</th>
+	                     <td colspan="4">
+	                     		${n.title}%	
+	                     </td>
+	                  </tr>
+	                  
+	                  <tr>
+	                     <th>작성자</th>
+	                     <td colspan="4">
+	                     		${n.writer }
+	                     </td>
+	                  </tr>
+	                  
+	                  <tr>
+	                     <th>작성일</th>
+	                     <td colspan="4">
+	                     		${ n.regDate }
+	                     </td>
+	                  </tr>
+	                  
+	                  <tr>
+	                     <th>조회수</th>
+	                     <td colspan="4">
+	                     		${n.hit }
+	                     </td>
+	                  </tr>
+	                  
+	                  <tr>
+	                     <th>내용</th>
+	                     <td colspan="4">
+	                     		${n.content}
+	                     </td>
+	                  </tr>	       
+<%-- 	                  
+	                  <tr>
+	                     <th>첨부파일</th>
+	                     <td colspan="4">
+	                     		<% for(NoticeFile f : list){ %>
+	                     		<a href="upload/<%=f.getSrc()%>" download><%=f.getSrc()%></a>
+	                     		<%} %>
+	                     </td>
+	                  </tr> --%>
+	                 
+						<tr>
+	                     <td colspan="5">
+	                     		${n.content }
+	                     		<img src="upload/" />
+	                     		
+	                     </td>
+	                  </tr>	  	             
+	                  
+	               </tbody>
+	            </table>
+            <div>           
+               <a href="notice-edit.jsp?c=${n.code }">수정</a>
+                <a href="notice-delete.jsp?c=${n.code }">삭제</a>               
+               <a href="notice.jsp">목록</a>
+             </div>
+             <div>
+             	<ul>
+<%--              		<li>
+             			<span>이전글</span>
+             			<% if(prev ==  null){ %>
+             			<span>이전 글이 존재하지 않습니다.</span>
+             			<%
+             			}
+             			else{
+             			%>
+						<a href="notice-detail.jsp?c=<%=prev.getCode()%>"><%=prev.getTitle() %></a>             		
+						<%} %>
+             		</li>
+					<li>
+             			<span>다음 글 </span>
+             			<% if(next == null){ %>
+             			<span>다음 글이 존재하지 않습니다.</span>
+             			<%
+             			}
+             			else{
+             			%>
+						<a href="notice-detail.jsp?c=<%=next.getCode()%>"><%=next.getTitle() %></a>             		
+						<%} %>             		
+					</li>          --%>
+             	</ul>
+             	
+             </div>            
          </main>
          
       </div>
