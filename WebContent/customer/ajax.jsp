@@ -50,49 +50,60 @@
 		
 	
  */		
- 		regButton.onclick = function(){
+ 		regButton.onclick = function(event){
 	 		var request = new window.XMLHttpRequest();
 			event.preventDefault(); //a태그가 갖는 기본 행위를 금지시킴.
 
 			request.open("GET", "notice-reg-partial.jsp",true);
-			request.onload = function(){
-				var screen = document.createElement("div");
-				screen.style.width="100%";
-				screen.style.height="100%";
-				screen.style.position = "fixed";
-				screen.style.left = "0px";
-				screen.style.top = "0px";
-				screen.style.background = "#000";
-				screen.style.opacity = "0.5";
-				
-				document.body.appendChild(screen);	
-				
-				var formScreen = document.createElement("div");
-				
-				formScreen.style.width="100%";
-				formScreen.style.height="100%";
-				formScreen.style.position = "fixed";
-				formScreen.style.left = "0px";
-				formScreen.style.top = "0px";
-			
-				document.body.appendChild(formScreen);
-			
-				var formText = request.responseText;
-				formScreen.innerHTML = formText; // formScreen의 text는 없어서 대입해도 가능함.
-				
-				var form = formScreen.querySelector("form");
-				form.style.background = "#fff";
-				form.style.marginLeft = "auto";
-				form.style.marginRight = "auto";
-				form.style.width = "580px";
-				form.style.position = "relative";
-				form.style.top = "50%";
-				form.style.transform = "translateY(-50%)";
-				/* form.style.left = "50%"; */
-				
-				
-			};
+
+		    request.onload = function() {
+	            //장막 screen 만들기
+	            var screen = document.createElement("div");
+	            screen.className = "screen";
+	            screen.style.width = "100%";
+	            screen.style.height = "100%";
+
+	            //스크롤해도 장막 다 쳐지게하는 것 fixed
+	            screen.style.position = "fixed";
+	            screen.style.left = "0px";
+	            screen.style.top = "0px";
+	            screen.style.background = "#000";
+	            screen.style.opacity = "0.5";
+
+	            document.body.appendChild(screen);
+
+	            var formScreen = document.createElement("div");
+	            formScreen.className = "formScreen";
+	            formScreen.style.width = "100%";
+	            formScreen.style.height = "100%";
+	            formScreen.style.position = "fixed";
+	            formScreen.style.left = "0px";
+	            formScreen.style.top = "0px";
+
+	            document.body.appendChild(formScreen);
+	            var formText = request.responseText;
+	            //문자열을 받아서 객체화해라 body 전체에 하면 안좋음 (이 건에 대해선 다음시간에)
+	            formScreen.innerHTML=formText; // innerHTML은 텍스트가 없어서 대입도 가능함
+	            //formScreen.innerHTML+=form;
+	            var form = formScreen.querySelector("form");
+	            form.style.background ="#fff";
+	            form.style.width ="530px";
+	            
+	            //정중앙(수평)
+	            form.style.marginLeft ="auto";
+	            form.style.marginRight ="auto";
+
+	            //정중앙(수직)
+	            form.style.position="relative";
+	            form.style.top="50%";
+	            form.style.transform="translateY(-50%)";
+
+	            var script = formScreen.querySelector("script");
+	            eval(script.textContent);
+	         };
+
 			request.send();
+			return false;
 			
 		};
 
@@ -103,6 +114,8 @@
  */						
 			//var request = new ActiveXObject("Microsoft.XMLHTTP"); // 윈도우에서만 사용 가능
 			var request = new window.XMLHttpRequest(); // 모든 브라우저에서 사용할 경우
+
+			
 			request.open("GET", "ajax-data.jsp", true);
 			
 			 // false는 동기방식-데이터도착할때까지기다림
@@ -146,7 +159,7 @@
 			
 			document.body.appendChild(screen);
 			
-			 }			
+			 };			
 });
 
 </script>

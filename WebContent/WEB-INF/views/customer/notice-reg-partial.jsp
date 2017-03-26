@@ -18,15 +18,9 @@
          //console.log("ss");
          
          request.onload = function() {
-				var screen = document.querySelector(".screen");
-				var formScreen = document.querySelector(".formScreen");
-         		
-				// 등록 후 자동으로 지워준다.
-				screen.remove();
-				formScreen.remove();
-				//document.removeChild(screen);
+
          };
-         request.open("post", "notice-reg-ajax", true); //비동기식
+         request.open("POST", "notice-reg-ajax", true); //비동기식
          request.send(formData);
          
          
@@ -53,7 +47,6 @@
       </tbody>
    </table>
    <div>
-      <input class="reg-button" type="submit" value="등록" /> 
-      <a href="notice.jsp">취소</a>
+      <input class="reg-button" type="submit" value="등록" /> <a href="notice.jsp">취소</a>
    </div>
 </form>

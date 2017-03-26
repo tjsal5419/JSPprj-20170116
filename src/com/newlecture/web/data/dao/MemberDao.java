@@ -10,4 +10,5 @@ public interface MemberDao {
 	void delete(String mid);
 	void modify(Member member);
 	List<Member> getList(String query);
+	Member get(String id);
 } 

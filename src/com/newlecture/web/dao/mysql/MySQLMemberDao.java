@@ -81,6 +81,44 @@ public class MySQLMemberDao implements MemberDao {
 		return getList("");
 	}
 
+
+	@Override
+	public Member get(String id) {
+		  String sql = "SELECT * From MEMBER WHERE ID=?";
+		  Member member = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false";
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, id);
+			
+			ResultSet rs = st.executeQuery();
+			if (rs.next()) {
+				member = new Member();
+				member.setId(rs.getString("ID"));
+				member.setPhone(rs.getString("PHONE"));
+				member.setName(rs.getString("NAME"));
+				member.setPwd(rs.getString("PWD"));
+				member.setGender(rs.getString("GENDER"));
+				member.setBirthday(rs.getString("BIRTHDAY"));
+				member.setRegDate(rs.getDate("REG_DATE"));
+			}
+			rs.close();
+			st.close();
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	      return member;
+	}
+
 /*	@Override
 	public int add(Member member) {
 		  String sql = "INSERT INTO MEMBER(MID,PWD,PHONE,NAME,GENDER,AGE, MAJOR, BIRTHDAY,REGDATE) VALUES(?,?,?,?,?,?,?,?,SYSDATE)";
