@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	#container{
+		width : 700px;
+		height : 500px;
+		border : 1px solid indigo;
+		
+	}
+	
+	#toolbar{
+		background : fuchsia;
+		height : 100px;
+	}
+	
+	#rootm{
+		background: yellow;
+		height : 400px;
+	}
+	
+	#rootm div{
+		width : 100px;
+		height : 50px;
+		background: green;
+		transition-duration:1.2s; /* 크랜지션 진행 시간 */
+		transition-property: all; /* 해당 프로퍼티만 적용 */
+		transition-timing-function: steps(3,start);
+		
+		/* transition-delay: 1s;/*  1초 쉬었다 크랜지션 적용 */
+/* 		transition-timing-function: cubic-bezier(1.000, -0.600, 0.000, 1.650); */
+		transform-origin: right top;
+
+	}
+
+	#rootm div:hover{
+		
+		transform :  skew(30deg, 0deg);
+	}
+</style>
+</head>
+<body>
+	<h1> 교실 </h1>
+	<div id="container">
+		<div id="toolbar">
+		</div>
+		<div id="rootm">
+			<div>
+				
+			</div>
+		</div>
+		<div>
+		</div>
+	</div>
+</body>
+</html>

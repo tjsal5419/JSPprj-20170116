@@ -1,128 +1,167 @@
 
-<%@page import="java.util.ListIterator"%>
 <%@page import="com.newlecture.web.data.view.NoticeView"%>
 <%@page import="java.util.List"%>
 <%@page import="com.newlecture.web.data.dao.NoticeDao"%>
 <%@page import="com.newlecture.web.dao.mysql.MySQLNoticeDao"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%
+	String _page = request.getParameter("p");
+	String _query = request.getParameter("q");
+	String _field = request.getParameter("f");
+
+	int pg=1;
+	String query = "";
+	String field = "TITLE";
+	
+	if(_page!=null && !_page.equals(""))
+		pg = Integer.parseInt(_page);
+	
+	if(_query != null && !_query.equals(""))
+		query = _query;
+	
+	if(_field != null && !_field.equals(""))
+		field = _field;		
+
+	NoticeDao noticeDao = new MySQLNoticeDao();
+	List<NoticeView> list = noticeDao.getList(pg, field, query);
+	
+	int size = noticeDao.getSize(field, query);
+%>    
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>으갹갹갹</title>
-<link href="../css/customer/style.css" type="text/css" rel="stylesheet" />
+<link href="../../css/customer/style.css" type="text/css" rel="stylesheet" />
 
 <script>
-/* 	var ar = ["철수","영희","미진","선미"];
-	 
-	var exam = {
-		kor:30,
-		eng:40,
-		math:50
-	};
-	
-	 for(var i in exam)  /* for-in 문=자바의 for each문, for each는 값을 뽑아내고 for-in은 인덱스를 빼낸다. 꼭!!!!!!지역 변수를 사용할 것 */
 
-	 // var add = new Function("x,y","return x+y;"); // 자바 스크립트는 Java나 C처럼 함수를 정의하고 사용하지 않는다. 
-	 
-/* 	 var add = function(){ //JSON
-	 	var sum = 0 ;
-		 
-	 	for(var i in arguments) 
-		 	sum+=arguments[i];
-		
-	 	return sum;
-	
-	 } // 정의x  선언->객체 생성->참조
-	 
-	 alert(add(3,4,5,8,9));
-*/
-/* 
- function f1(){
-	var a  = 1;
-	return function f2(){ // f는 클로저(f2가 f1의 변수를 물고 f1을 f가 물고 있어, 함수가 끝나도 메모리의 변수가 사라지지 않음)
-		return a;
-	}
-}
-	
-	var f = f1();
-	var a = f();
-	
-	alert(a);
-} */
-
-	window.addEventListener("load", function(e) {
+	window.addEventListener("load", function() {
 		var moreButton = document.querySelector("#more-button");
-		var notices = [
+		var regButton = document.querySelector("#reg-button");
+/*  		var notices = [
 			{code:"1", title:"오오오"},
 			{code:"2", title:"오호오"},
 			{code:"3", title:"오히오"}
 		];
 		
-		moreButton.onclick = function(){
-			var template = document.querySelector("#notice-row");
+	
+ */		
+ 		regButton.onclick = function(event){
+	 		var request = new window.XMLHttpRequest();
+			event.preventDefault(); //a태그가 갖는 기본 행위를 금지시킴.
+
+			request.open("GET", "notice-reg-partial.jsp",true);
+
+		    request.onload = function() {
+	            //장막 screen 만들기
+	            var screen = document.createElement("div");
+	            screen.style.width = "100%";
+	            screen.style.height = "100%";
+
+	            //스크롤해도 장막 다 쳐지게하는 것 fixed
+	            screen.style.position = "fixed";
+	            screen.style.left = "0px";
+	            screen.style.top = "0px";
+	            screen.style.background = "#000";
+	            screen.style.opacity = "0.5";
+
+	            document.body.appendChild(screen);
+
+	            var formScreen = document.createElement("div");
+	            formScreen.style.width = "100%";
+	            formScreen.style.height = "100%";
+	            formScreen.style.position = "fixed";
+	            formScreen.style.left = "0px";
+	            formScreen.style.top = "0px";
+
+	            document.body.appendChild(formScreen);
+	            var formText = request.responseText;
+	            //문자열을 받아서 객체화해라 body 전체에 하면 안좋음 (이 건에 대해선 다음시간에)
+	            formScreen.innerHTML=formText; // innerHTML은 텍스트가 없어서 대입도 가능함
+	            //formScreen.innerHTML+=form;
+	            var form = formScreen.querySelector("form");
+	            form.style.background ="#fff";
+	            form.style.width ="530px";
+	            
+	            //정중앙(수평)
+	            form.style.marginLeft ="auto";
+	            form.style.marginRight ="auto";
+
+	            //정중앙(수직)
+	            form.style.position="relative";
+	            form.style.top="50%";
+	            form.style.transform="translateY(-50%)";
+
+	            var script = formScreen.querySelector("script");
+	            eval(script.textContent);
+	         };
+
+			request.send();
+			return false;
 			
-			for(var i in notices){
-				var tbody = document.querySelector(".notice-table tbody");	
-				var tds = template.content.querySelectorAll("td");
+		};
+
+		moreButton.onclick = function(){
+			//var data  = eval('[{code:"1", title:"오오오"},{code:"2", title:"오호오"},{code:"3", title:"오히오"}];'); // eval은 매핑명에 큰 따옴표 안써줘도 된다.
+/* 			var data = JSON.parse('[{"code":"1", "title":"오오오"},{"code":"2", "title":"오호오"},{"code":"3", "title":"오히오"}];'); // 제이슨 표기는 매핑 속성에 꼭 큰 따옴표 써줘야함. 多사용
+			alert(data[1].code);
+ */						
+			//var request = new ActiveXObject("Microsoft.XMLHTTP"); // 윈도우에서만 사용 가능
+			var request = new window.XMLHttpRequest(); // 모든 브라우저에서 사용할 경우
+
+			
+			request.open("GET", "ajax-data.jsp", true);
+			
+			 // false는 동기방식-데이터도착할때까지기다림
+
+			// 비동기방식 이용할 경우, 데이터 도착 전에 다음 코드가 실행될 수 있음. 
+			//이를 방지하기 위해 데이터 받는 넘한테 함수를 위임해줘야함
+			
+
+			request.onload = function(){ // readyState의 상태가 변한 경우
+			// readyState - (1)unsent (2)opend (3) header rcv (4)data rcv (5) done
+			
+				//if(request.readyState==4){
+				var notices = JSON.parse(request.responseText);
 				
+		 		var template = document.querySelector("#notice-row");
 				
-				tds[0].innerText = notices[i].code;
-				tds[1].innerText = notices[i].title;
-				
-				var clone = document.importNode(template.content, true);
-				tbody.appendChild(clone);
-			}
-		}
-	});
+				for(var i in notices){
+					var tbody = document.querySelector(".notice-table tbody");	
+					var tds = template.content.querySelectorAll("td");
+					
+					tds[0].innerText = notices[i].code;
+					tds[1].innerText = notices[i].title;
+					
+					var clone = document.importNode(template.content, true);
+					tbody.appendChild(clone);
+				};
+				document.body.removeChild(screen); 		
+ 				
+			};
+
+			request.send();		
+			
+			var screen = document.createElement("div");
+			screen.style.width="100%";
+			screen.style.height="100%";
+			screen.style.position = "fixed";
+			screen.style.left = "0px";
+			screen.style.top = "0px";
+			screen.style.background = "#000";
+			screen.style.opacity = "0.5";
+			
+			document.body.appendChild(screen);
+			
+			 };			
+});
+
 </script>
  
-
-<!--  <script>
- 
- 	var a = "안녕하세요";
- 	var sum = 0;
- 	var b = new Object("안녕하세요");
- 	alert("11"-3);
- 	
- </script>
- 
- 
- -->
-<!-- <script>
-		var student = {}; //[] 는 배열
-		student.name = "안농";
-		student.age = 20;
-		student["취미"] = ["운동", "음악 감상", "멍때리기"];
-		student.height = 180;
-		alert(32>"4");
-		
-</script>
- -->
-<!--
-
-연산자
-
- 덧셈은 문자열+숫자 => 문자열 뺄셈은 문자열-숫자 => 숫자
- "36">"2" 는 첫째자리 비교(따라서 true)
- -->
- 
- 
- 
- 
-<!-- 
-<script>
-	var student = { //set형 array {}로 객체 생성
-			name : "홍길동",
-			age : 20,
-			"취미" : ["코딩", "요리", "수학"]
-	}
-	alert(student["취미"][1]);
-</script>
- -->
  
  </head>
 <body>
@@ -142,7 +181,7 @@
 	}
 </script>
  -->
-<script src="../js/customer/notice.js">
+<script src="../../js/customer/notice.js">
 </script>
 
 	<!-- ---------------------------------------------헤 더------------------------------------------------------------ -->
@@ -150,7 +189,7 @@
 		<div class="content-container">
 
 			<h1 id="logo">
-				<img src="../images/logo.png" alt="뉴렉처 온라인">
+				<img src="../../images/logo.png" alt="뉴렉처 온라인">
 			</h1>
 
 			<section>
@@ -247,7 +286,7 @@
 			<main id="main"> <!-- 				<section id="quick-menu">
 					<h2>퀵메뉴</h2>
 				</section> -->
-			<h2 class="main-title">공지사항[${size}]</h2>
+			<h2 class="main-title">공지사항<%=size %></h2>
 			<div class="breadcrumb">
 				<h3 class="hidden">breadcrumb</h3>
 				<ul>
@@ -265,25 +304,11 @@
 						<label>검색분류</label> 
 						
 						<select name="f">
-							<c:if test="${param.f =='TITLE'}"> <!-- url로 받을 때, request에 파라미터로 넣어줌 -->
-								<c:set var="selTitle" value="selected" scope="page"/> <!-- scope default는 page -->
-							</c:if>
-
-							<c:if test="${param.f == 'CONTENT'}">
-								<c:set var="selContent" value="selected" scope="page"/> <!-- scope default는 page -->
-							</c:if>
-
-							<option value="TITLE"  ${selTitle} >
-								제목
-							</option>
-
-							<option value="CONTENT"  ${selContent} >
-								내용
-							</option>
-							
+							<option value="TITLE"<% if(field.equals("TITLE")){ %> selected <% } %>>제목</option>
+							<option value="CONTENT"  <% if(field.equals("CONTENT")){ %> selected <% } %>>내용</option>
 						</select> 
 						
-						<label>검색어</label> <input name="q" type="text" placeholder="검색어를 입력하세요" value=${query }>
+						<label>검색어</label> <input name="q" type="text" placeholder="검색어를 입력하세요" value=<%=query %>>
 						<input class="btn btn-search" type="submit" value="검색" />
 						<input class="hidden" name="p" value="1" />
 					</fieldset>
@@ -315,36 +340,36 @@
 							</tr>
 						</template>
 					
-						<c:forEach items="${list}" var="v">
+						<%for(NoticeView v : list){ %>
 						<tr>
-							<td>${v.getCode() }</td>
-							<td><a href="notice-detail?c=${v.getCode()}">${v.getTitle()}</a></td>
-							<td>${v.getWriter() }</td>
-							<td>${ v.getRegdate() }</td>
-							<td>${ v.getHit() }</td>
+							<td><%= v.getCode() %></td>
+							<td><a href="notice-detail.jsp?w=<%= v.getWriter() %>&t=<%=v.getTitle()%>&c=<%=v.getContent()%>&d=<%=v.getRegdate()%>&h=<%=v.getHit()%>"> <%= v.getTitle() %> </a></td>
+							<td><%= v.getWriter() %></td>
+							<td><%= v.getRegdate() %></td>
+							<td><%= v.getHit() %></td>
 					    </tr>
-						</c:forEach>
+						<%} %>
 					</tbody>
 				</table>
 			</div>
-	   				
-			<div class="margin">${pg}/${last} pages</div>
+			<div class="margin">1/3 pages</div>
 			<!-- 제목도, 목록도, 문장도, 폼도, 표도 아니면 모두 div -->
 
 			<div class="margin">
-               <div><a href="">이전</a></div>  
-        	
-             	
-					<ul>
- 						<c:forEach var="i" begin="1" end="${last}">
- 						 	<li><a href="?p=${i}&q=${param.q}&f=${param.f}">${i}</a></li>
-             			</c:forEach>
-               		</ul>
-               
+               <div><a href="">이전</a></div>
+               <%
+               		int last = (size % 10) >0 ?  size/10+1 :  size/10;
+               %>
+               <ul>
+               	<%for(int i =1 ; i<= last ; i++){%>
+                 	 <li><a href="?p=<%=i %>&q=<%=query%>&f=<%=field%>"><%=i%></a></li>
+                 <%} %>
+                  	
+               </ul>
                <div><a href="">다음</a></div>
             </div>
  	        	<div>
- 	        		<a href="notice-reg.jsp">글쓰기</a>
+ 	        		<span id="reg-button">글쓰기</span>
  	        		<span id="more-button">더보기</span>
  	        	</div>
 

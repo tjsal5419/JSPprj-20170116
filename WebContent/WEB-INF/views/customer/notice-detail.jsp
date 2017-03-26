@@ -1,4 +1,5 @@
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.newlecture.web.data.entity.NoticeFile"%>
 <%@page import="com.newlecture.web.dao.mysql.MySQLNoticeFileDao"%>
 <%@page import="com.newlecture.web.data.dao.NoticeFileDao"%>
@@ -9,10 +10,9 @@
 <%@page import="com.newlecture.web.dao.mysql.MySQLNoticeDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,7 +140,7 @@
 	                  <tr>
 	                     <th>작성일</th>
 	                     <td colspan="4">
-	                     		${ n.regDate }
+	                     	${n.regdate} 
 	                     </td>
 	                  </tr>
 	                  
@@ -156,16 +156,40 @@
 	                     <td colspan="4">
 	                     		${n.content}
 	                     </td>
-	                  </tr>	       
-<%-- 	                  
+	                  </tr>	                        
 	                  <tr>
 	                     <th>첨부파일</th>
 	                     <td colspan="4">
-	                     		<% for(NoticeFile f : list){ %>
-	                     		<a href="upload/<%=f.getSrc()%>" download><%=f.getSrc()%></a>
-	                     		<%} %>
+	                     		<%
+	                     			List ns = new ArrayList();
+	                     			ns.add("하하1");
+	                     			ns.add("하하2");
+	                     			ns.add("하하3");
+	                     			ns.add("하하4");
+	                     			ns.add("하하5");
+	                     			ns.add("하하6");
+	                     			
+	                     			String hbs = "놀기, 먹기, 자기";
+	                     			pageContext.setAttribute("ns", ns);
+	                     			pageContext.setAttribute("hbs", hbs);
+	                     			
+	                     		%>
+	                     		<c:forTokens var="hb" items="${hbs }" delims=",">
+	                     			${hb }<br/>
+	                     		</c:forTokens>
+	                     		
+	                     		<c:forEach var ="i" begin="1" end="3" items="${ns}" varStatus="st">
+	                     			${st.index} : 나는 ~${i}<br/>
+	                     			
+	                     		</c:forEach>
+	                     		<c:forEach var="i" begin="1" end="3">
+	                     			맥보이~${i}<br/>
+	                     		</c:forEach>
+	                     		<c:forEach items="${list }" var="f">
+	                     		<a href="upload/${f.src }" download>${f.src }</a>
+	                     		</c:forEach>
 	                     </td>
-	                  </tr> --%>
+	                  </tr>
 	                 
 						<tr>
 	                     <td colspan="5">
@@ -184,28 +208,23 @@
              </div>
              <div>
              	<ul>
-<%--              		<li>
+             		<li>
              			<span>이전글</span>
-             			<% if(prev ==  null){ %>
-             			<span>이전 글이 존재하지 않습니다.</span>
-             			<%
-             			}
-             			else{
-             			%>
-						<a href="notice-detail.jsp?c=<%=prev.getCode()%>"><%=prev.getTitle() %></a>             		
-						<%} %>
+						<c:if test="${ empty prev}"> <!-- empty : null, 빈 문자열 포함 -->
+             				<span>이전 글이 존재하지 않습니다.</span>
+ 						</c:if>
+ 						<c:if test="${not empty prev }">
+							<a href="notice-detail.jsp?c=${prev.code }">${prev["title"] }</a>             		
+						</c:if>
              		</li>
 					<li>
-             			<span>다음 글 </span>
-             			<% if(next == null){ %>
-             			<span>다음 글이 존재하지 않습니다.</span>
-             			<%
-             			}
-             			else{
-             			%>
-						<a href="notice-detail.jsp?c=<%=next.getCode()%>"><%=next.getTitle() %></a>             		
-						<%} %>             		
-					</li>          --%>
+						<c:if test="${empty next}">
+             				<span>다음 글이 존재하지 않습니다.</span>
+						</c:if>
+						<c:if test="${not empty next }">
+							<a href="notice-detail.jsp?c=${next.code }">${next["title"]}</a>             		
+						</c:if>
+					</li>          
              	</ul>
              	
              </div>            

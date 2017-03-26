@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
+
+import org.apache.catalina.core.ApplicationContext;
 
 import com.newlecture.web.dao.mysql.MySQLNoticeDao;
 import com.newlecture.web.dao.mysql.MySQLNoticeFileDao;
@@ -39,6 +42,8 @@ public class NoticeDetailController extends HttpServlet{
 		request.setAttribute("prev", prev);
 		request.setAttribute("next", next);
 		request.setAttribute("list", list);
+
+	
 		
 		request.getRequestDispatcher("notice-detail.jsp").forward(request, response);
 		
