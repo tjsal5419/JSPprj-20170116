@@ -1,4 +1,4 @@
-package com.newlecture.web.controller;
+package com.newlecture.web.controller.customer;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,9 +21,8 @@ import com.newlecture.web.data.view.NoticeView;
 
 @WebServlet("/customer/notice-detail")
 public class NoticeDetailController extends HttpServlet{
-	
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code=request.getParameter("c");
 		
 		NoticeDao noticeDao = new MySQLNoticeDao();
@@ -45,11 +44,11 @@ public class NoticeDetailController extends HttpServlet{
 
 	
 		
-		request.getRequestDispatcher("notice-detail.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/customer/notice-detail.jsp").forward(request, response);
 		
 		// JSP - 2가지의 입출력 도구와 4가지의 저장소
 		// 저장소 - 세션(한 사용자) 어플리케이션(전체) 리퀘스트(두 서블릿) 페이지(한 페이지)
-		
+				
 	}
-
+	
 }

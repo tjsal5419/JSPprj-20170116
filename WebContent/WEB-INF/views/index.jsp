@@ -21,6 +21,8 @@
 		</c:if>
 		
 		<a href="join.html">회원가입</a>
+		<a href="customer/notice">게시판</a>
+		
 		<a href="customer/notice">고객센터</a>
 	</header>
 	<h1>홈페이지 환영</h1>

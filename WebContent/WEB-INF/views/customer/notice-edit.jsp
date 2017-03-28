@@ -4,114 +4,9 @@
 <%@page import="com.newlecture.web.dao.mysql.MySQLNoticeDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-/*    	String writer  = request.getParameter("w");
-	String content = request.getParameter("c");
-	String title = request.getParameter("t");
-	String regDate = request.getParameter("d");
-	String hit = request.getParameter("h"); */
-	
-	String code = request.getParameter("c");
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-	NoticeDao noticeDao = new MySQLNoticeDao();
-	NoticeView n = noticeDao.get(code);
-	
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="../css/reset.css" type="text/css" rel="stylesheet" />
-<link href="../css/customer/style.css" type="text/css" rel="stylesheet" />
-<script src="../js/customer/notice.js" ></script>
-</head>
-<body>
-   <!-- ------header--------------------------------------------------- -->
-   <header id="header">
-      <div class="content-container">
-         <h1 id="logo">
-            <img src="../images/logo.png" alt="뉴렉처 온라인" />
-         </h1>
-      
-         <section>
-            <h1 class="hidden">헤더</h1>
-         
-            <nav id="main-menu" class="hr-menu">
-               <h1 class="">메인메뉴
-                  <input type="button" value="클릭"    id="btn-result" />
-               </h1>                           
-               <ul>
-                  <li><a href="">학습가이드</a></li>
-                  <li><a href="">뉴렉과정</a></li>
-                  <li><a href="">강좌선택</a></li>
-               </ul>
-            </nav>
-            
-            <div id="lecture-search-form">
-               <h3 class="hidden">강좌검색폼</h3>
-               <form>
-                  <fieldset>
-                     <legend class="hidden">검색 필드</legend>
-                     <label>과정검색</label>
-                     <input type="text" />
-                     <input class="lecture-search-botton" type="submit" value="검색"/>
-                  </fieldset>
-               </form>
-            </div>
-         
-            <nav id="account-menu" class="hr-menu">
-               <h1 class="hidden">계정메뉴</h1>
-               <ul>
-                  <li class="first"><a href="../index.html">HOME</a></li>
-                  <li><a href="../joinus/login.html">newlec 로그아웃</a></li>
-                  <li>회원가입</li>
-               </ul>
-            </nav>
-         
-            <nav id="member-menu" class="hr-menu">
-               <h1 class="hidden">회원메뉴</h1>
-               <ul>
-                  <li class="first">마이페이지</li>
-                  <li><a href="">고객센터</a></li>
-               </ul>
-            </nav>
-         </section>
-         
-      </div>
-   </header>
-   <!-- ------visual--------------------------------------------------- -->
-   <div id="visual">
-      <div class="content-container">
-      <!-- visual -->         
-      </div>
-   </div>
-   <!-- ------body--------------------------------------------------- -->
-   <div id="body">
-      <div class="content-container clearfix">
-         <aside id="aside">
-                                    
-            <h1 class="aside-title aside-main-title aside-margin">고객센터</h1>
-         
-            <nav>
-               <h1 class="hidden">고객센터메뉴</h1>
-               <ul>
-                  <li class="aside-menu-item"><a class="aside-menu-item-link" href="">공지사항</a></li>
-                  <li class="aside-menu-item"><a class="aside-menu-item-link" href="">1:1고객문의</a></li>
-                  <li class="aside-menu-item"><a class="aside-menu-item-link" href="">학습안내</a></li>
-               </ul>
-            </nav>
-         
-            <nav>
-               <h1 class="aside-title margin">추천사이트</h1>
-               <ul class="margin">
-                  <li><a href=""><img src="../images/answeris.png" alt="앤서이즈" /></a></li>
-                  <li><a href=""><img src="../images/w3c.png" alt="w3c" /></a></li>
-                  <li><a href=""><img src="../images/microsoft.png" alt="마이크로소프트" /></a></li>
-               </ul>
-            </nav>
-         </aside>
-      
+
          <main id="main">
       
             <h2 class="main-title">공지사항 내용</h2>
@@ -125,41 +20,41 @@
                </ul>
             </div>
                
-               <form action="notice-edit-proc.jsp" method="post">
+               <form method="post">
 	            <table border="1">
 	               <tbody>
 	                  <tr>
 	                     <th>제목</th>
 	                     <td colspan="4">
-	                     		<input name="title" type="text" value="<%=n.getTitle() %>"/>	
+	                     		<input name="title" type="text" value="${n.title }"/>	
 	                     </td>
 	                  </tr>
 	                  
 	                  <tr>
 	                     <th>작성자</th>
 	                     <td colspan="4">
-	                     		<%= n.getWriter() %>	
+	                     		${n.writer }
 	                     </td>
 	                  </tr>
 	                  
 	                  <tr>
 	                     <th>작성일</th>
 	                     <td colspan="4">
-	                     		<%= n.getRegdate() %>
+	                     		${n.regdate }
 	                     </td>
 	                  </tr>
 	                  
 	                  <tr>
 	                     <th>조회수</th>
 	                     <td colspan="4">
-	                     		<%= n.getHit() %>
+	                     		${n.hit }
 	                     </td>
 	                  </tr>
 	                  
 	                  <tr>
 	                     <th>내용</th>
 	                     <td colspan="4">
-	                     		<textarea name="content" rows="20" cols="80"><%= n.getContent() %></textarea>
+	                     		<textarea name="content" rows="20" cols="80">${n.content }</textarea>
 	                     </td>
 	                  </tr>	                  
 	                  
@@ -167,28 +62,12 @@
 	            </table>
 	           
             <div>
-            	<input type="hidden" name="code" value=<%=n.getCode() %>>
+            	<input type="hidden" name="code" value="${n.code }">
                	<input type="submit" value="저장" />
-                <a href="notice-detail.jsp?c=<%=n.getCode()%>">취소</a>               
+                <a href="notice-detail?c=${n.code }">취소</a>               
             </div>            
            </form>
 
          </main>
          
-      </div>
-   </div>
-   <!-- ------footer--------------------------------------------------- -->
-   <footer id="footer">
-      <div class="content-container">
-         <h2>회사정보</h2>
-         <div>Copyright ⓒ newlecture.com 2012-2014 All Right Reserved.
-            Contact admin@newlecture.com for more information</div>
-      </div>
-   </footer>
-   
-
-</body>
-</html>
-
-
 

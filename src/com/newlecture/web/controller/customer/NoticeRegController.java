@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.newlecture.web.dao.mysql.MySQLNoticeDao;
 import com.newlecture.web.dao.mysql.MySQLNoticeFileDao;
@@ -20,11 +21,25 @@ import com.newlecture.web.data.entity.NoticeFile;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-@WebServlet("/customer/notice-reg-proc")
-public class NoticeRegProcController extends HttpServlet {
+@WebServlet("/customer/notice-reg")
+public class NoticeRegController extends HttpServlet {
 	
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("UTF-8");
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("id")==null)
+			response.sendRedirect("../joinus/login?return-url=../cutomer/notice-reg");
+			/*response.getWriter().println("<script>alert('로그인이 되지 않았습니다.'); location.href='../joinus/login';</script>");*/
+		else
+			request.getRequestDispatcher("/WEB-INF/views/customer/notice-reg.jsp").forward(request, response);
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 서버(서블릿)에서 클라이언트가 업로드한 파일 저장하기
 
 
@@ -86,7 +101,7 @@ public class NoticeRegProcController extends HttpServlet {
 		}
 	 	  if(result > 0)
 	 	  {
-		      response.sendRedirect("notice.jsp");
+		      response.sendRedirect("notice");
 		    	System.out.println("r:"+result1);  
 	 	  }
 		  else

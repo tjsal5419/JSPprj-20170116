@@ -1,4 +1,4 @@
-package com.newlecture.web.controller;
+package com.newlecture.web.controller.customer;
 
 import java.io.File;
 import java.io.IOException;

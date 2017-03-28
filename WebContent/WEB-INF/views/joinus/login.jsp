@@ -14,12 +14,13 @@
 		<a href="">로그인</a>
 		<a href="join.html">회원가입</a>
 		<a href="../customer/notice.html">고객센터</a>
+		<a href="../customer/notice">게시판</a>
 	</header>
 	<h1>로그인</h1>
 	<form method="POST">
 		<fieldset>
 			<table>
-				<c:if test="${not empty validata && not validata}">
+				<c:if test="${not empty validate && not validate}">
 				<tr>
 					<td colspan="2" style="color:red;">유효하지 않는 아이디, 비밀번호 입니다.</td>
 				</tr>

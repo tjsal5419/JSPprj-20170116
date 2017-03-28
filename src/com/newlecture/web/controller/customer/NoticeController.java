@@ -1,4 +1,4 @@
-package com.newlecture.web.controller;
+package com.newlecture.web.controller.customer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,10 +14,10 @@ import com.newlecture.web.dao.mysql.MySQLNoticeDao;
 import com.newlecture.web.data.dao.NoticeDao;
 import com.newlecture.web.data.view.NoticeView;
 
-@WebServlet("/notice")
+@WebServlet("/customer/notice")
 public class NoticeController extends HttpServlet {
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String _page = request.getParameter("p");
 		String _query = request.getParameter("q");
 		String _field = request.getParameter("f");
