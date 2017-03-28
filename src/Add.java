@@ -15,12 +15,12 @@ public class Add extends HttpServlet {
          throws ServletException, IOException {
 
       response.setCharacterEncoding("UTF-8");
-      response.setContentType("text/html; charset=UTF-8");
-      
+      response.setContentType("text/html; charset=utf-8");    
+
       PrintWriter out = response.getWriter();
 
       int result = 0;
-
+      out.write("<html>");
       out.write("<form action=\"add\" method=\"post\">");
       out.write("    <ul>");
       out.write("        <li><label for=\"x\">X :</label><input name=\"x\" /></li>");
@@ -35,6 +35,7 @@ public class Add extends HttpServlet {
       out.write("    </p>");
       out.write("    <p><a href=\"data-view\">데이터보기</a></p>");
       out.write("</form>");
+      out.write("</html>");
 
    }
 

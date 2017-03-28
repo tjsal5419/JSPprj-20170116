@@ -11,11 +11,9 @@
 		}
 		
 		50%{
-			width : 1000px;
 		}
 		
 		to{
-			width : 500px;
 		}
 	}
 
@@ -52,7 +50,10 @@
 		
 		/* transition-delay: 1s;/*  1초 쉬었다 크랜지션 적용 */
 /* 		transition-timing-function: cubic-bezier(1.000, -0.600, 0.000, 1.650); */
-		transform-origin: right top;
+
+		transition-duration: 0.5s;
+		transition-property: left,top, transform;
+		transition-timing-function: ease-out, ease-out, ease-in-out;
 
 	}
 
@@ -68,6 +69,8 @@ window.addEventListener("load",function(e){
  	var zoomInButton = document.querySelector("#zoom-in-button");
  	var originButton = document.querySelector("#origin-button");
 	var divs = document.querySelectorAll("#rootm div");
+	var rotateButton = document.querySelector("#rotate-button");
+	var room = document.querySelector("#rootm");
 	
 	zoomInButton.onclick= function(){
 /* 	
@@ -94,7 +97,7 @@ window.addEventListener("load",function(e){
 
 		};
 
-		originButton.onclick = function(){
+	originButton.onclick = function(){
 			for(var i in divs){
 				divs[i].animate([
 					{ left : divs[i].offsetLeft+'px', top:divs[i].offsetTop +'px'},
@@ -104,7 +107,30 @@ window.addEventListener("load",function(e){
 			divs[i].style.left = '0px';
 			divs[i].style.top = '0px';
 			}
-		};
+	};
+	
+	rotateButton.onclick = function(){
+		for(var i=0; i<divs.length ; i++) {
+			divs[i].style.left =divs[i].dataset.dx;
+			divs[i].style.top =divs[i].dataset.dy;
+			divs[i].style.transform ="rotate(360deg)";
+			divs[i].style.transitionDelay=(i/3)+"s";
+		}
+	};
+	
+	room.onclick=function(event) {
+		event.target.style.border = "2px solid blue";
+		event.currentTarget.style.border = "2px solid red";
+		
+		if(event.target===event.currentTarget) {
+			
+		}
+		else {
+			alert("hello");
+		}
+		
+	};
+	
 	
 });
 </script>
@@ -115,24 +141,18 @@ window.addEventListener("load",function(e){
 		<div id="toolbar">
 			<input id="zoom-in-button" type="button" value="zoomin"/>
 			<input id="origin-button" type="button" value="원위치로!"/>
+			<input id="rotate-button" type="button" value="rotate"/>
 		</div>
 		<div id="rootm">
-			<div>
-				김모씨
-			</div>
-			
-			<div>
-				박모씨
-			</div>
-			
-			<div>
-				금모씨
-			</div>
-			
-			<div>
-				하하하
-
-			</div>
+			<div data-sx="" data-sy="" data-dx="100px" data-dy="100px">1</div>
+			<div data-sx="" data-sy="" data-dx="220px" data-dy="100px">2</div>
+			<div data-sx="" data-sy="" data-dx="340px" data-dy="100px">3</div>
+			<div data-sx="" data-sy="" data-dx="460px" data-dy="100px">4</div>
+			<div data-sx="" data-sy="" data-dx="100px" data-dy="200px">5</div>
+			<div data-sx="" data-sy="" data-dx="220px" data-dy="200px">6</div>
+			<div data-sx="" data-sy="" data-dx="340px" data-dy="200px">7</div>
+			<div data-sx="" data-sy="" data-dx="460px" data-dy="200px">8</div>   
+		</div>
 		</div>
 		<div>
 		</div>

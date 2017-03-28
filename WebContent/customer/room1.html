@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Change Seat</title>
+<style>
+
+	@keyframes zoom-in{
+		from {
+			width:100px;
+		}
+		50% {
+			width: 1000px;
+		}
+		to {
+			width:400px;
+		
+		}
+	
+	}
+	#class {
+		width: 700px;
+		height: 500px;
+		border: 1px solid indigo;
+	}
+
+	#toolbar {
+		height: 100px;
+		background:gray;
+	}
+
+	#room {
+		height: 400px;
+		background: yellow;
+		position: relative;
+	}
+
+	#room div {
+		
+		position: absolute;
+		width: 100px;
+		height: 50px;
+		background: green;
+		top:10px;
+		left: 50px;
+		border-radius: 10px;
+		box-shadow: 2px 2px 2px #474747;
+
+		transition-duration: 0.5s;
+		transition-property: left,top, transform;
+		transition-timing-function: ease-out, ease-out, ease-in-out;
+
+
+		/* transition-property: all; */
+		/* transition-duration: 1.2s; */
+		/* transition-timing-function: steps(3,start); */
+
+		/*width만 먹히게 하기*/
+		/*transition-delay: 1s;*/
+	}
+
+	/* #room div:hover {
+		animation-name:zoom-in;
+		animation-duration: 1.5s;
+		
+		transform-origin: center top;
+		transform:skew(-33deg, 1deg);
+		transform: rotate(7.5deg);
+	} */
+
+
+</style>
+<script>
+	window.addEventListener("load", function(e) {
+
+		var divs = document.querySelectorAll("#room");
+		var divs = document.querySelectorAll("#room div");
+		var zoomInButton = document.querySelector("#zoom-in-button");
+		/*var divClick = function() {
+			alert("hello");
+		};*/
+		/*for(var i=0; i<divs.length; i++) {
+			divs[i].onclick = divClick;
+		};*/
+		room.onclick=function(event) {
+			if(event.target===event.currentTarget) {
+				
+			}
+			else {
+				alert("hello");
+			}
+			
+		};
+		zoomInButton.onclick = function(){
+			for(var i=0; i<divs.length;i++) {
+
+				divs[i].style.left =divs[i].dataset.dx;
+				divs[i].style.top =divs[i].dataset.dy;
+				divs[i].style.transform ="rotate(360deg)";
+				divs[i].style.transitionDelay=(i/3)+"s";
+			}
+		};
+		
+	});
+
+	/*window.addEventListener("load", function(e) {
+	
+	var zoomInButton = document.querySelector("#zoom-in-button");
+	zoomInButton.onclick = function(){
+		var divs = document.querySelectorAll("#room div");
+		
+		var poses = [
+			{left:'100px', top:'200px'},
+			{left:'300px', top:'200px'},
+			{left:'500px', top:'200px'}
+		]
+		
+		
+		for(var i in divs) {
+			divs[i].animate([
+				{left:divs[i].offsetLeft+'px', top:divs[i].offsetTop+'px'},
+				poses[i]
+			], 1000);
+		};
+		
+		
+	}
+});*/
+</script>
+</head>
+
+<body>
+	<h1>교실</h1>
+	<div id="class">
+		<div id="toolbar">
+			<input id="zoom-in-button" type="button" value="zoom in"/>
+		</div>
+		<div id="room">
+			<div data-sx="" data-sy="" data-dx="100px" data-dy="100px">1</div>
+			<div data-sx="" data-sy="" data-dx="220px" data-dy="100px">2</div>
+			<div data-sx="" data-sy="" data-dx="340px" data-dy="100px">3</div>
+			<div data-sx="" data-sy="" data-dx="460px" data-dy="100px">4</div>
+			<div data-sx="" data-sy="" data-dx="100px" data-dy="200px">5</div>
+			<div data-sx="" data-sy="" data-dx="220px" data-dy="200px">6</div>
+			<div data-sx="" data-sy="" data-dx="340px" data-dy="200px">7</div>
+			<div data-sx="" data-sy="" data-dx="460px" data-dy="200px">8</div>   
+		</div>
+	</div>
+</body>
+</html>

@@ -13,7 +13,7 @@ public class DataView extends HttpServlet {
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       response.setCharacterEncoding("UTF-8");
-      response.setContentType("text/html; charset=UTF-8");
+      response.setContentType("charset=UTF-8; text/html");
       
       PrintWriter out = response.getWriter();      
       
@@ -42,10 +42,12 @@ public class DataView extends HttpServlet {
       }
       //어플리케이션 데이터는 크롬에 저장하고 익스플로어에서 봐도 데이터가 여전히 살아있음 어플리케이션은 모든 사용자가 사용 가능한 데이터
       
+      out.write("<html>");
       out.printf("session data : %s</br>", s);
       out.printf("cookie data : %s</br>", c);
       out.printf("application data : %s</br>", a);
       out.println("<a href=\"add\">데이터편집</a>");
+      out.write("</html>");
    }
 
 }
