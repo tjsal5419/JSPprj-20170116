@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	/* 자바스크립트 = 언어 + 플랫폼 */
+	window.addEventListener("load", function(e) {
+		var p1= document.getElementById("p1");
+		var runButton = document.getElementById("run-button");
+ 
+	
+	/* 플랫폼
+	1. BOM(Browser of Model) */
+		
+		
+	/*
+	2.  DOM(Document of Model) */
+	 /* 
+	 노드 순회 */
+/* 	runButton.onclick = function(){
+		alert(p1.previousSibling.nodeType);
+		alert(p1.previousSibling.nodeName);
+	}; */ 
+
+	
+	 
+	 /*  
+	 셀렉터를 이용한 노드 탐색(선택)  */
+	runButton.onclick = function(){
+		var inputs = document.querySelectorAll("#p1 > input"); /* 엘리먼트 노드 중에서의 첫 번째 것이라 test1은 자식에서 제외 */
+		inputs[0].value = "오케바리";
+		
+	};
+	});
+
+	window.addEventListener("load", function(e) {
+		var changeButton= document.getElementById("change-button");
+		var strText = document.querySelector("#src-Text"); /* 엘리먼트 노드 중에서의 첫 번째 것이라 test1은 자식에서 제외 */
+		var img = document.querySelector("#img1");
+		var srcBorder = document.querySelector("#src-border");
+		var borderWidth = document.querySelector("#border-width");
+		var borderStyle = document.querySelector("#border-style");
+		var borderColor = document.querySelector("#border-color");
+		var borderColorRadio = document.getElementsByName("color");
+		
+		changeButton.onclick = function(){
+			img.src = "images/"+ strText.value;
+/* 			img.style.border = srcBorder.value; // style 속성 변경 */
+			img.style.borderWidth = borderWidth.value;
+			img.style.borderColor = borderColor.value;
+			img.style.borderStyle = borderStyle.value;
+	
+			for(i=0; i<borderColorRadio.length;i++){
+				if(borderColorRadio[i].checked)		
+					{
+					alert(borderColorRadio[i].value);
+					img.style.borderColor = borderColorRadio[i].value;
+					}
+			} 
+	};
+	});
+
+	/* 
+	노드 조작(삭제,추가) */
+	
+	window.addEventListener("load", function(e) {
+		var addButton = document.querySelector("#add-button");
+		var container = document.querySelector("#container");
+		var deleteButton = document.querySelector("#delete-button");
+		var cloneButton = document.querySelector("#clone-button");
+		var downButton = document.querySelector("#down-button");
+		
+		addButton.onclick = function(){
+		//element생성
+		var img = document.createElement("img");
+		img.src = "images/favicon.png";
+		img.style.width = "200px";
+		
+		// 생성한 element를 Node객체를 이용하여 추가함.
+		container.appendChild(img);	
+		//노드를 다큐먼트에 추가
+	};
+	
+	deleteButton.onclick = function(){
+		var container = document.querySelector("#container");
+		var last = container.querySelector("img:last-child");
+		
+		container.removeChild(last);
+
+	}
+	
+	cloneButton.onclick = function(){
+		var container = document.querySelector("#container");
+		var last = container.cloneNode(true);
+		var parent = container.parentElement;
+		
+		parent.appendChild(last);
+		
+	}
+	
+	downButton.onclick = function(){
+		var container = document.querySelector("#container");
+		var parent = container.parentElement;
+		var target = container.nextElementSibling;
+		
+		var old = parent.replaceChild(cursor, target);
+		parent.insertBefore(old, cursor);
+	}
+});
+	
+	
+</script>
+</head>
+<!--  ---------------------------------------------------------------------------------------- -->
+<body>
+	<input id="add-button" type="button" value="이미지추가"/>
+	<input id="delete-button" type="button" value="이미지삭제"/>
+	<input id="clone-button" type="button" value="통째로 복제"/>
+	<input id="down-button" type="button" value="밑으로 내리기"/>
+	<div>
+		<div id="cursor">
+			바뀔놈
+		</div>
+	
+		<div id="container">
+		</div>
+
+	</div>
+	
+	<hr/>
+	images/<input type="text" id="src-Text" value="favicon.png"/><br/>
+	경계선<input type="text" id="src-border" value = "15px solid white" /><br/>
+	경계선 색깔<input type="text" id="border-color" value = "green" /><br/>
+	경계선 두께<input type="text" id="border-width" value = "15px" /><br/>
+	경계선스타일<input type="text" id="border-style" value = "solid" /><br/>
+
+	경계선 색깔(라디오버튼)
+	초록<input type="radio" name="color" value="green" checked="checked"/>
+	빨강<input type="radio"  name="color" value="red"/>
+	노랑<input type="radio"   name="color" value="yellow"/>
+	검정<input type="radio"  name="color" value="black"/>
+	주황<input type="radio" name="color" value="orange"/>
+	
+    <input id="change-button" type="button"  value="변경" /><br/>
+    <img id="img1" src="images/favicon.png" />   
+	<hr/>
+	
+	
+	<input type="button" value="실행" id="run-button"/>
+	<div>
+		<font>font</font> 
+		<input />
+	</div>
+	<form id="p1">
+		test1 
+		<input /> 
+		<input />
+	</form>
+		test2
+	<p>para</p>
+	hello
+</body>
+</html>

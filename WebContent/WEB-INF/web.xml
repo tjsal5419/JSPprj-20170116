@@ -31,4 +31,7 @@
   <description>
      Welcome to Tomcat
   </description>
+  <session-config>
+    <session-timeout>3</session-timeout>
+  </session-config>
 </web-app>

@@ -25,20 +25,19 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
-		String returnUrl = request.getParameter("return-url");
 		response.setCharacterEncoding("UTF-8");
 
 		PrintWriter out = response.getWriter();
 		
 		Member member = new MySQLMemberDao().get(id);
-		boolean validate = true;
+		boolean validata = true;
 		HttpSession session = request.getSession();
 		
 		if(member == null)
-			validate = false;
+			validata = false;
 		else if(!member.getPwd().equals(pwd))
 		{
-			validate = false;
+			validata = false;
 			System.out.println("비번다릅ㅂ니다");
 		}
 		else
@@ -48,13 +47,10 @@ public class LoginController extends HttpServlet {
 		}
 		
 		
-		if(validate)
-			if(returnUrl!=null)
-				response.sendRedirect(returnUrl);
-			else 
-				response.sendRedirect("../index");
+		if(validata)
+			response.sendRedirect("../index");
 		else{
-			request.setAttribute("validate", validate);
+			request.setAttribute("validata", validata);
 			request.getRequestDispatcher("/WEB-INF/views/joinus/login.jsp").forward(request, response);
 		}
 	}	
