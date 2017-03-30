@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tiles.TilesContainer;
+import org.apache.tiles.access.TilesAccess;
+import org.apache.tiles.request.ApplicationContext;
+
 import com.newlecture.web.dao.mysql.MySQLNoticeDao;
 import com.newlecture.web.data.dao.NoticeDao;
 import com.newlecture.web.data.view.NoticeView;
@@ -55,5 +59,11 @@ public class NoticeController extends HttpServlet {
 		
 		request.getRequestDispatcher("/WEB-INF/views/customer/notice.jsp").forward(request, response);
 		
+		/*TilesContainer container = TilesAccess.getContainer((ApplicationContext) request.getServletContext());
+		
+		container.render("customer.notice", request);*/
+		
+		
+	
 	}
 }
