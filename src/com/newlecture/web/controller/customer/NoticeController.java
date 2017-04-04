@@ -53,10 +53,7 @@ public class NoticeController extends HttpServlet {
 		request.setAttribute("size", size);
 		request.setAttribute("list", list);
 		request.setAttribute("pg", pg);
-		request.setAttribute("q", query);
-		request.setAttribute("f", field);
-		request.setAttribute("last", last);
-		
+
 		request.getRequestDispatcher("/WEB-INF/views/customer/notice.jsp").forward(request, response);
 		
 		/*TilesContainer container = TilesAccess.getContainer((ApplicationContext) request.getServletContext());

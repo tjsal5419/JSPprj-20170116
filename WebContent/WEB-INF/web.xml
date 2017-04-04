@@ -26,10 +26,10 @@
       <param-value>/WEB-INF/tiles.xml</param-value>
    </context-param>
    
-   <!-- <listener>
-       <listener-class>org.apache.tiles.web.startup.simple.SimpleTilesListener</listener-class>
-   </listener> -->
-
+<!--    <listener>
+      <listener-class>org.apache.tiles.web.startup.simple.SimpleTilesListener</listener-class>
+     </listener> -->
+  
 <!--   <servlet>
       <servlet-name>Tiles Dispatch Servlet</servlet-name>
       <servlet-class>org.apache.tiles.web.util.TilesDispatchServlet</servlet-class>
@@ -38,7 +38,11 @@
       <servlet-name>Tiles Dispatch Servlet</servlet-name>
       <url-pattern>*.tiles</url-pattern>
    </servlet-mapping> -->
-
+  
+  <servlet>
+    <servlet-name>na</servlet-name>
+    <servlet-class>Nana</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>na</servlet-name>
     <url-pattern>/hello</url-pattern>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		var btn1 = $("#btn1");
+		btn1.click(function(){
+			alert("클릭");
+		});
+	});
+
+	
+</script>
+</head>
+<body>
+	<form>
+		<table>
+			<tr>
+				<th>제목</th>
+				<td><input type="text" /></td>
+			</tr>
+
+			<tr>
+				<th>분류</th>
+				<td>
+				<select>
+					<option selected="selected">유머게시판</option>
+					<option>경주게시판</option>
+					<option>야인게시판</option>
+					
+				</select>
+				</td>
+			</tr>
+
+			<tr>
+				<th></th>
+				<td>
+					<input id="btn1" type="button" value="클릭"/>
+				</td>
+			</tr>
+
+			<tr>
+				<th></th>
+				<td></td>
+			</tr>
+			
+		</table>
+	</form>
+</body>
+</html>

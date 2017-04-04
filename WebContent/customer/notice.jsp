@@ -328,7 +328,7 @@
 				</table>
 			</div>
 	   				
-			<div class="margin">${pg}/${last} pages</div>
+			<div class="margin">${p}/${last} pages</div>
 			<!-- 제목도, 목록도, 문장도, 폼도, 표도 아니면 모두 div -->
 
 			<div class="margin">
