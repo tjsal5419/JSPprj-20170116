@@ -6,13 +6,43 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(function(){
-		var btn1 = $("#btn1");
-		btn1.click(function(){
-			alert("클릭");
+		var img = $("<img/>"); /* < />는 엘리먼트 생성이다. */
+		img.attr("src","../../images/logo.png");
+		var td = $("table tr:nth-child(4) td");
+		img.appendTo(td);
+		
+		$("#btn1").click(function(){
+			
+/* 			if(td.children()==0)
+				img.appendTo("td").parent().parent().parent().clone().appendTo(td);
+			else
+				img.detach(); */
+				img.animate({
+					width : "500px",
+					opacity : 0.7
+				},1000,function(){
+					img.clone().appendTo(td)
+				})
+				.queue(function(){ /* 큐에 담긴 애니메이션이 진행될 때, 중간에 새로운 큐를 넣기 위해 queue 사용 */
+					img
+					.css("border","2px solid red")
+					.dequeue()
+				})
+				.delay(500)
+				.animate({
+					width : "100px"
+				},{
+					duration : 500,
+					queue : false
+				});
+				
+				/* 반환의 대부분이 jquery라서 꼬리에 꼬리를 물 수 있다. */
+					
+				
+				
 		});
 	});
 
-	
 </script>
 </head>
 <body>
