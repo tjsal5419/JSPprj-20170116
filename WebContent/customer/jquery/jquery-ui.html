@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<style>
+	#space{
+		background:black;
+		width : 700px;
+		height : 500px;
+		position : relative;
+	}
+	
+	#pot{
+	
+		background:yellow;
+		width : 100px;
+		height : 100px;
+		left : 0px;
+		top : 0px;
+	
+	}
+</style>
+
+<script>
+	$(function(){
+		$("#pot").draggable();
+		
+		$("#stop").click(function(){
+			$("#pot").css("left","0px");
+			$("#pot").css("top","0px");
+			
+		});
+		
+	})
+</script>
+
+
+</head>
+<body>
+	<input type="button" id="stop" value="원위치로"/>
+	<div id="space">
+		<div id="pot">
+		
+		</div>
+	</div>
+</body>
+</html>

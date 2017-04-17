@@ -18,10 +18,37 @@ $(function(){
 		
 
 	/* 위의 방식보단 get, getJSON, getScript로 Ajax를 많이 이용한다. */
+	/* get 후의 jquery를 done, fail, always로 처리 가능함! */
 	
-		$.getJSON("../ajax-data.jsp", function( data ) {
+	
+		/* $.getJSON("../ajax-data.jsp", function( data ) {
             alert(data[0].writerName);
-       });
+       }); */
+       
+/*        $.getScript("script.js",function(){
+    	   alert("a1");
+       })
+	   .done(function(){
+		   alert("a2");
+	   });
+    */
+	   	/* get으로 가져오는 데이터 */
+	   	//1. 텍스트 $.get
+	   	//2. JSON $.getJSON
+	   	//3. Script $.getScript
+	   	//4. Partial .load  (로드하고싶은노드).load
+	   	
+/*        $("body div:nth-child(2)")
+       .load("../notice-reg-partial.jsp"); */
+	   	
+       
+       /* serialize => formData를 가져옴 */
+	   var formData = $("#form").serialize();
+	   alert(formData);
+	   $.post("post-proc.jsp", data,function(d){
+		   alert(d);
+	   });
+
 	
 	}); 
 	 
@@ -44,10 +71,33 @@ $(function(){
 </head>
 <body>
 	<div>
-		<input id="get-button" type="button" value="get"/>
-		<input id="json" type="button" value="json"/>
-		<input id="get-script" type="button" value="get-script"/>
-		<input id="load-button" type="button" value="load-button"/>				
+		<input id="get-button" type="button" value="get" /> <input id="json"
+			type="button" value="json" /> <input id="get-script" type="button"
+			value="get-script" /> <input id="load-button" type="button"
+			value="load-button" />
+	</div>
+	<div>
+		<form id="form" action="notice-reg-proc.jsp" method="post">
+			<table border="1">
+				<tbody>
+					<tr>
+						<th>제목</th>
+						<td><input type="text" name="title" /></td>
+					</tr>
+					<tr>
+						<th>첨부파일<progress value="0" max="100"></progress></th>
+						<td><input type="file" name="file1" /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><textarea rows="20" cols="80" name="content"></textarea></td>
+					</tr>
+				</tbody>
+			</table>
+<!-- 			<div>
+				<input class="reg-button" type="submit" value="등록" /> <a
+					href="notice.jsp">취소</a>
+			</div> -->
+		</form>
 	</div>
 </body>
 </html>

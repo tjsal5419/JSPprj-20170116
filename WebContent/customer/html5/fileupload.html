@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+	#upload-zone{
+		background : yellow;
+		width : 500px;
+		height : 300px;
+		border : 1px solid black;
+	}
+	
+	input[type='file']{
+		display : none;
+	
+	}
+	
+	#drag-zone{
+		background : gray;
+		width : 500px;
+		height : 200px;
+	}
+	
+	#drag-zone > div {
+		background : blue;
+		width : 100px;
+		height : 100px;
+	}
+	
+	#upload-zone.enter{
+		background : pink;
+	}
+	
+	#image{
+		width : 100px;
+		height : 100px;
+	}
+</style>
+	
+<script>
+</script>
+
+<script>
+// 버블발생 막기 위한 예시
+	$(function(){
+
+// addListener은 DOM만 가능하므로, get함수로 jquery를 dom으로 내려준다.
+/* 		$("#drag-zone").get(0).addEventListener("click",function(event){
+			event.stopPropagation();
+			//alert("zone");
+		},true);  */
+//		true할 경우 통지 과정에 캡쳐된다. false는 아래->위 실행 과정에서 실행 
+
+/* 
+		$("#drag-zone > div").get(0).addEventListener("click",function(){
+			//alert("div");
+		},true);
+
+ */
+
+/* 		
+		$("#drag-zone").click(function(){
+
+			alert("zoen");
+		});
+
+		$("#drag-zone>div").click(function(){
+			
+			event.stopPropagation();
+			alert("div");
+
+		});
+ */
+		
+// 		클릭 버튼 대신 다른 것 클릭 시 클릭 버튼 trigger
+/* 		$("#upload-zone").click(function(){
+			$("input[type='file']").trigger("click");
+		}); */
+		
+	      $("#drag-zone>div").bind("dragstart",function(event){
+
+	          var dt = event.originalEvent.dataTransfer;
+	          dt.effectAllowed="copy";
+	          
+	          dt.setData("text/plain","http://www.mozilla.org");
+	    
+	          console.log("start");
+	       });
+	       
+	       /* $("#drag-zone>div").bind("drag",function(){
+	          console.log("rg");
+	       }); */
+	       
+	       $("#upload-zone").bind("dragenter",function(){
+	          $(this).addClass("enter");
+	          console.log("enter");
+	       }); 
+	       
+	       $("#upload-zone").bind("dragover",function(){
+	          event.preventDefault();
+	          event.stopPropagation();
+	          console.log("over");
+	       });
+	       
+	       $("#upload-zone").bind("dragleave",function(){
+	          $(this).removeClass("enter");
+	          console.log("leave");
+	       });
+	       
+	       $("#upload-zone").bind("drop",function(event){
+	          /* event.preventDefault();
+	          event.stopPropagation(); */
+	          var dt = event.originalEvent.dataTransfer;
+	          /* var data = dt.getData("text/plain");
+	          
+	          alert("data");
+	          
+	          console.log("drop"); */
+	          var valide=dt.types[0].indexOf('Files')>=0;
+	          
+	          if(!valide){
+	             alert("파일형식이 아닙니다");
+	             return;
+	          }
+	          
+	          var size = dt.files.length;
+	          if(size>1){
+	             alert("파일을 두개 이상 전송할 수 없습니다");
+	             return;
+	          }
+	          
+	          var request = new XMLHttpRequest();
+	          //request.onload = function(){};
+	          request.addEventListener("progress",function(){
+	             
+	          });
+	          request.addEventListener("load",function(){
+	             
+	          });
+	          request.addEventListener("error",function(){
+	             
+	          });
+	          
+	          
+	          request.open("POST","/upload");
+	          
+	          var fd = new FormData();
+	          fd.append("file",dt.files[0]);
+	          
+	          request.send(fd);
+	          
+	       });
+	})
+	
+/* 	function allowDrop(ev) {
+	    ev.preventDefault();
+	}
+
+	function drag(ev) {
+	    ev.dataTransfer.setData("text", ev.target.id);
+	}
+
+	function drop(ev) {
+	    ev.preventDefault();
+	    var data = ev.dataTransfer.getData("text");
+	    ev.target.appendChild(document.getElementById(data));
+	} */
+</script>
+<!-- 
+드래그 드랍 => 데이터를 심고 꺼낸다.
+파일 업로드(절름발이) => 드랍만 처리하면 된다.
+DND는 드래그도 처리해야하므로  
+
+
+-->
+</head>
+<body>
+	<div id="upload-zone">
+		<div>업로드할 파일을 선택 또는 끌어놓기</div>
+	</div>
+	<input type="file" />
+	<div id="drag-zone">
+		<div draggable="true"> 헤헤 </div>
+		<img id="image" src="../../images/1.jpg" src="http://www.google.com"/>
+	</div>
+</body>
+</html>
